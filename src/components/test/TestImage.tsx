@@ -35,11 +35,11 @@ export function TestImage() {
             setLoading(false);
         }
     }
-    console.log('select', selected)
     // Hook useEffect para llamar a getDishes cuando el componente se monte
     useEffect(() => {
         getDishes();
-    }, []);
+        console.log(selected)
+    }, [selected]);
 
 
 
@@ -49,28 +49,49 @@ export function TestImage() {
             {loading && <p className="text-blue-500">Cargando...</p>}
             {error && <p className="text-red-500">Error: {error}</p>}
             {!loading && !error && dishes.length === 0 ? (
-                <p className=" mt-[1rem]">No hay platos disponibles en este momento.</p>
+                <p className=" mt-[1rem]">No hay platos disponibles en este momento...</p>
             ) : (
-                <h1 className="text-lg font-bold my-[1rem]">Platos Disponibles</h1>
-
+                <h1 className="text-base font-bold my-[1rem]">Platos Disponibles</h1>
             )}
-            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+            {/*    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6">
                 {dishes.map((dish) => (
-                    <div onClick={() => setSelected(dish.id)} key={dish.id} className={`bg-white border-2 ${selected === dish.id ? " border-turquoise4  " : " hover:bg-gray-300"
+                    <div onClick={() => setSelected(dish.id)} key={dish.id} className={`bg-white  border-2 ${selected === dish.id ? " border-turquoise1  " : " hover:bg-gray-300"
                         }  shadow-lg rounded-lg overflow-hidden`}>
                         <img
                             src={dish.image_url}
                             alt={dish.name}
-                            className="w-full border border-black h-1/3  object-cover"
+                            className="w-full border  h-1/2  object-cover"
                         />
-                        <div className="p-4 text-xs">
-                            <h2 className=" font-semibold">{dish.name}</h2>
-                            <p className="text-gray-600">{dish.description}</p>
+                        <div className="p-4 text-black text-xs">
+                            <h2 className=" ">{dish.name}</h2>
+                            <p className="text-gray-700">{dish.description}</p>
                             <span className="text-gray-500 ">{dish.category}</span>
                         </div>
                     </div>
                 ))}
+            </div> */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+                {dishes.map((dish) => (
+                    <div
+                        onClick={() => setSelected(dish.id)}
+                        key={dish.id}
+                        className={`bg-white border-2 ${selected === dish.id ? "border-turquoise1" : "hover:bg-gray-300"
+                            } shadow-md rounded-md overflow-hidden hover:shadow-lg transition-transform duration-100 flex flex-col h-full justify-between`}
+                    >
+                        <img
+                            src={dish.image_url}
+                            alt={dish.name}
+                            className="w-full h-1/2 object-cover "
+                        />
+                        <div className="p-4 text-black   text-xs mt-2">
+                            <h2 className="text-sm font-semibold">{dish.name}</h2>
+                            <p className="text-gray-600 text-xs">{dish.description}</p>
+                            <span className="text-gray-400 text-xs">{dish.category}</span>
+                        </div>
+                    </div>
+                ))}
             </div>
+
         </div>
     );
 }

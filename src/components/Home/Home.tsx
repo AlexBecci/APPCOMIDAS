@@ -57,7 +57,11 @@ export function Home() {
                 <div className="max-w-xs sm:mx-sm lg:mx-md">
                     <Calendar days={daysInMonth} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
                 </div>
-                <TestImage />
+                {selectedDay !== null && selectedDay !== undefined ? (
+                    <TestImage />
+                ) : (
+                    <h1 className="text-sm text-black anima mt-[3rem]">Seleciona un día para elegir menu</h1>
+                )}
             </div>
         </div>
     );
