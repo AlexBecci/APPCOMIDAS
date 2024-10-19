@@ -33,6 +33,11 @@ export default {
         turquoise2: "#00a896",
         turquoise1: "#02c39a",
         creamWhite: "#f0f3bd",
+        coral: "#ff6f61",
+        softOrange: "#ffab40",
+        lightGray: "#d9d9d9",
+        deepBlue: "#004b87",
+        mintGreen: "#b2e0d9",
       }
     },
   },

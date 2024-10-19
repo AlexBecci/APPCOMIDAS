@@ -48,14 +48,14 @@ export function NavBar() {
     }, []);
 
     return (
-        <div className="relative bg-creamWhite  flex flex-col ">
+        <div className="relative bg-creamWhite  flex flex-col z-50">
             <header className=" shadow-md p-2 text-black relative z-10">
                 <div className="container mx-auto flex justify-between items-center">
                     <h1 className="text-2xl ">FastFood</h1>
                     <div className="flex justify-between items-center gap-4">
                         <button
                             onClick={() => setTab(!tab)}
-                            className="bg-slate-700 shadow-sm text-white   p-2 rounded-md"
+                            className="bg-slate-700 shadow-sm text-white   p-2 rounded-sm"
                         >
                             {tab ? (
                                 <IoIosArrowUp size={24} />

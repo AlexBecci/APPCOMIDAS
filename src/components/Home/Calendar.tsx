@@ -15,9 +15,7 @@ export function Calendar({ days, selectedDay, setSelectedDay }: CalendarProps) {
                 </div>
             ))}
             {days.map((day) => (
-                <div className="">
-                    <Day key={day} day={day} selected={day === selectedDay} onClick={() => setSelectedDay(day)} />
-                </div>
+                <Day key={day} day={day} selected={day === selectedDay} onClick={() => setSelectedDay(day)} />
             ))}
         </div>
     );
