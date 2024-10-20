@@ -4,7 +4,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { DishesByMenu } from "../test/DishesByMenu";
 import { LiaBrailleSolid } from "react-icons/lia";
 import { Orders } from "./Orders";
-import { IoMdArrowBack, IoMdArrowDown, IoMdArrowForward } from "react-icons/io";
+import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { BaseUrl } from "../../content/Variables";
 import { getUserId } from "../../logic/user";
 
@@ -30,7 +30,7 @@ function getTodayDate() {
     return `${year}-${month}-${day}`;
 }
 
-function getTodayDateNumberDay() {
+export function getTodayDateNumberDay() {
     const today = new Date();
     const day = parseInt(String(today.getDate()).padStart(2, '0')); // Convierte el día a string y asegura que tenga dos dígitos
     return day;
@@ -93,8 +93,6 @@ export function Home() {
         // Usamos el constructor de Date para obtener el último día del mes
         return new Date(year, month + 1, 0).getDate();
     }
-
-
 
 
     //funcion que no permitiria que pueda pedir 
@@ -165,9 +163,9 @@ export function Home() {
                 <div className="flex flex-col items-center  text-white justify-start h-screen mx-[1rem] my-[1rem]">
                     <div className="max-sm sm:max-w-md flex items-center w-full justify-between gap-4">
                         {/* ACA DEBERIA CAMBIAR EL MES Y QUE SE ACTUALICE SOLO POR EJEMPLO SIEMPRE CUANDO CARGUE CARGUE EL MES ACTUAL Y Y LAS FLECHAS CAMVIEN DE MES DE OCTUBRE A SEPTIEMBRE Y ASI */}
-                        <button onClick={goToPreviousMonth} className="bg-slate-700 text-creamWhite rounded-full  p-2 mx-0"><IoMdArrowBack size={24} /></button>
+                        <button onClick={goToPreviousMonth} className="bg-slate-700 text-white rounded-full  p-2 mx-0"><IoMdArrowBack size={24} /></button>
                         <h1 className="text-black text-lg">{/* ACA IRIA EL MES EN CUESTION ACTUAL */}{monthName}</h1>
-                        <button onClick={goToNextMonth} className="bg-slate-700 text-creamWhite rounded-full  p-2 mx-0"><IoMdArrowForward size={24} /></button>
+                        <button onClick={goToNextMonth} className="bg-slate-700 text-white rounded-full  p-2 mx-0"><IoMdArrowForward size={24} /></button>
                     </div>
                     <div className="max-w-xs sm:max-w-sm lg:mx-md">
                         <Calendar days={daysInMonth} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />

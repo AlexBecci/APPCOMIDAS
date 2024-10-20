@@ -11,8 +11,8 @@ export function NavBar() {
             route: '/home'
         },
         {
-            name: 'Clientes',
-            route: '/clients'
+            name: 'Armar Menus',
+            route: '/menus'
         },
         {
             name: 'Conductores',
@@ -48,14 +48,14 @@ export function NavBar() {
     }, []);
 
     return (
-        <div className="relative bg-creamWhite  flex flex-col z-50">
-            <header className=" shadow-md p-2 text-black relative z-10">
+        <div className="relative bg-deepBlue  flex flex-col z-50">
+            <header className=" shadow-md p-2 text-white relative z-10">
                 <div className="container mx-auto flex justify-between items-center">
                     <h1 className="text-2xl ">FastFood</h1>
                     <div className="flex justify-between items-center gap-4">
                         <button
                             onClick={() => setTab(!tab)}
-                            className="bg-slate-700 text-creamWhite transition-all  ease-in-out rounded-sm  p-1 mx-0"
+                            className="bg-slate-700 text-tur transition-all  ease-in-out rounded-sm  p-1 mx-0"
                         >
                             {tab ? (
                                 <IoIosArrowUp size={24} />
@@ -70,12 +70,12 @@ export function NavBar() {
                     style={{ maxHeight: maxHeight, overflowY: 'auto', overflowX: "auto" }}
                     className={`absolute  left-0 top-full w-full transition-all duration-500 ease-in-out ${tab ? 'opacity-100' : 'opacity-100'} ${tab ? 'h-96' : 'h-0'} overflow-hidden`}
                 >
-                    <div className="bg-gradient-to-br from-creamWhite to-amber-200  shadow-lg   p-4">
+                    <div className="bg-gradient-to-bl from-deepBlue to-turquoise4 shadow-lg   p-4">
                         {options.map((option, index) => (
                             <div key={index} className="py-2">
                                 <h1
                                     onClick={() => { setTab(false), navigate(`${option.route}`) }}
-                                    className="cursor-pointer hover:text-main_cyan "
+                                    className="cursor-default hover:text-turquoise1  "
                                 >
                                     {option.name}
                                 </h1>
