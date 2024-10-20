@@ -56,7 +56,7 @@ export function Orders({ boolean, close }: Prop) {
                 className="flex flex-col items-center justify-start mt-[6rem] mx-[1rem] min-h-full "
 
             >
-                <button onClick={handleClose} className="my-4 mr-auto bg-slate-700 text-white rounded">
+                <button onClick={handleClose} className=" mr-auto bg-slate-700 text-creamWhite rounded-full  p-2 mx-0">
                     <IoMdArrowBack size={24} />
                 </button>
                 <h1 className="text-black text-2xl g my-[1rem] mr-auto">Órdenes</h1>

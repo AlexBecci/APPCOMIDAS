@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp, IoMdArrowBack, IoMdArrowUp } from "react-icons/io";
 export function NavBar() {
     const [tab, setTab] = useState<boolean>(false);
     const [maxHeight, setMaxHeight] = useState<string>('400px'); // Ajusta el valor predeterminado según lo que necesites
@@ -55,7 +55,7 @@ export function NavBar() {
                     <div className="flex justify-between items-center gap-4">
                         <button
                             onClick={() => setTab(!tab)}
-                            className="bg-slate-700 shadow-sm text-white   p-2 rounded-sm"
+                            className="bg-slate-700 text-creamWhite transition-all  ease-in-out rounded-sm  p-1 mx-0"
                         >
                             {tab ? (
                                 <IoIosArrowUp size={24} />

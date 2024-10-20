@@ -4,6 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { getUserId } from "../../logic/user";
 import { ScrollContainer } from "../logic/ScrollContainer";
+import { adjustDate, menuDateDTO } from "../Home/Home";
 
 // Interfaz para los datos de los platos (dishes)
 interface dto_get_dishes {
@@ -16,6 +17,8 @@ interface dto_get_dishes {
 
 interface prop {
     date: string
+    body: menuDateDTO | undefined
+    dataComparer: string | undefined
 }
 
 
@@ -23,8 +26,13 @@ interface formSend {
     user_id: number | null
     dish_id: number
     state?: string
+    daily_menu_id: number | undefined
 }
-export function DishesByMenu({ date }: prop) {
+export function DishesByMenu({ date, body, dataComparer }: prop) {
+    //comparacion de valores de fechas para un booleano
+
+    const isSameDay = body?.menu_date.split('T')[0] === date;
+
     //hook form
     const { setValue, getValues } = useForm<formSend>()
     const [selected, setSelected] = useState<number>(0)
@@ -33,7 +41,6 @@ export function DishesByMenu({ date }: prop) {
     const [dishes, setDishes] = useState<dto_get_dishes[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error/* , setError */] = useState<string | null>(null);
-
     // Función para obtener los platos por fecha seleccionada
     async function getDishes() {
         const userId = await getUserId()
@@ -43,7 +50,6 @@ export function DishesByMenu({ date }: prop) {
             setLoading(true);
             const res = await fetch(`${BaseUrl}/daily_menus?date=${date}&user_id=${userId}`, { credentials: 'include' as RequestCredentials });
             if (res.status === 204) {
-                console.log(new Error("No hay platos para obtener con esa fecha"));
                 setDishes([])
                 setEmptyMenu(true);
                 return; // Detenemos aquí para evitar continuar
@@ -63,11 +69,9 @@ export function DishesByMenu({ date }: prop) {
             setLoading(false);
         }
     }
-    console.log('lorem', selected)
 
     async function createOrder(): Promise<void> {
         const dataOrder: formSend = await getValues()
-        console.log(dataOrder)
         try {
             const res = await fetch(`${BaseUrl}/orders`, {
                 method: 'POST',
@@ -93,13 +97,16 @@ export function DishesByMenu({ date }: prop) {
     async function setValues() {
         const userId = await getUserId()
         setValue('user_id', userId)
+        setValue('daily_menu_id', body?.id)
         setValue('state', 'Confirmado')
+
     }
+
     // Hook useEffect para llamar a getDishes cuando el componente se monte
     useEffect(() => {
+        console.log(body, date, dataComparer, isSameDay)
         getDishes();
         setValues()
-        console.log(selected)
     }, [date]);
 
 
@@ -120,33 +127,41 @@ export function DishesByMenu({ date }: prop) {
             ) : (
                 <h1 className="text-base  my-[1rem]">Platos Disponibles</h1>
             )}
-            <ScrollContainer maxHeight="400px">
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
-                    {dishes.map((dish) => (
-                        <div
-                            onClick={() => { setSelected(dish.id), setValue('dish_id', dish.id) }}
-                            key={dish.id}
-                            className={`bg-white border-2 ${selected === dish.id ? "border-turquoise3" : ""
-                                } shadow-md rounded-md overflow-hidden hover:shadow-lg transition-transform duration-100 flex flex-col h-full justify-between`}
-                        >
-                            <img
-                                src={dish.image_url}
-                                alt={dish.name}
-                                className="w-full h-[8rem] object-cover "
-                            />
-                            <div className="p-4 text-black   text-xs mt-2">
-                                <h2 className="text-sm font-semibold">{dish.name}</h2>
-                                <p className="text-gray-600 text-xs">{dish.description}</p>
-                                <span className="text-gray-400 text-xs">{dish.category}</span>
-                            </div>
-                            {selected === dish.id && selected !== 0 && selected !== null && selected !== undefined && (
-                                <button onClick={createOrder} className="py-2 w-full bg-deepBlue text-xs text-white">pedir</button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </ScrollContainer>
+            <div className="">
 
+                <ScrollContainer maxHeight="400px">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+                        {dishes.map((dish) => (
+                            <div
+                                onClick={() => { setSelected(dish.id), setValue('dish_id', dish.id) }}
+                                key={dish.id}
+                                className={`bg-white border-2 ${selected === dish.id ? "border-deepBlue" : ""
+                                    } shadow-md rounded-md overflow-hidden hover:shadow-lg transition-transform duration-100 flex flex-col h-full justify-between`}
+                            >
+                                <img
+                                    src={dish.image_url}
+                                    alt={dish.name}
+                                    className="w-full h-[8rem] object-cover "
+                                />
+                                <div className="p-4 text-black   text-xs mt-2">
+                                    <h2 className="text-sm font-semibold">{dish.name}</h2>
+                                    <p className="text-gray-600 text-xs">{dish.description}</p>
+                                    <span className="text-gray-400 text-xs">{dish.category}</span>
+                                </div>
+                                {selected === dish.id && selected !== 0 && selected !== null && selected !== undefined && (
+                                    <button
+                                        onClick={createOrder}
+                                        className={`py-2 w-full ${isSameDay ? 'bg-red-500' : 'bg-deepBlue'} text-xs text-white`}
+                                    >
+                                        pedir
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </ScrollContainer>
+
+            </div>
         </div>
     );
 }
