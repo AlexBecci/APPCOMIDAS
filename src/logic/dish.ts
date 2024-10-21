@@ -30,3 +30,45 @@ export async function getDishes() {
         return []; // Retornamos un array vacío en caso de error
     }
 }
+
+
+interface createDishDTO {
+    name: string;
+    description: string;
+    category: string;
+    image_url: string;
+}
+
+export async function createDish(name: string, description: string, category: string, image_url: string) {
+    // Crear el objeto content con los parámetros
+    const content: createDishDTO = {
+        name: name,
+        description: description,
+        category: category,
+        image_url: image_url,
+    };
+
+    try {
+        const res = await fetch(`${BaseUrl}/dishes`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(content),
+        });
+
+        if (!res.ok) {
+            // Manejar errores HTTP
+            throw new Error(`Error: ${res.status} - ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        console.log('Dish Create successfully:', data);
+        return data;
+
+    } catch (error) {
+        console.error(error);
+        return null; // Retorna null o lo que necesites en caso de error
+    }
+}

@@ -4,7 +4,8 @@ import { FaSpinner } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { getUserId } from "../../logic/user";
 import { ScrollContainer } from "../logic/ScrollContainer";
-import { adjustDate, menuDateDTO } from "../Home/Home";
+import { menuDateDTO } from "../Home/Home";
+import { toast, ToastContainer } from "react-toastify";
 
 // Interfaz para los datos de los platos (dishes)
 interface dto_get_dishes {
@@ -83,15 +84,23 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
             });
 
             if (!res.ok) {
+                const error = await res.json()
+                toast.error(`${error.message} !`, {
+                    position: "top-left"
+                });
                 // Manejar errores HTTP
                 throw new Error(`Error: ${res.status} - ${res.statusText}`);
+
             }
 
             const data = await res.json();
             console.log('Order created successfully:', data);
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error creating order:', error);
+           /*  toast.error(`${error.message} !`, {
+                position: "top-left"
+            }); */
         }
     }
     async function setValues() {
@@ -109,13 +118,10 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
         setValues()
     }, [date]);
 
-
-
-
-
     // Renderización condicional
     return (
         <div className="p-4 text-black w-full">
+            <ToastContainer />
             {loading && <div className="flex justify-center items-center">
                 <FaSpinner className="animate-spin text-slate-700 text-4xl" />
             </div>}
@@ -133,7 +139,7 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
                     <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
                         {dishes.map((dish) => (
                             <div
-                                onClick={() => { setSelected(dish.id), setValue('dish_id', dish.id) }}
+                                onClick={() => { setSelected(dish.id), setValue('dish_id', dish.id), setValue('daily_menu_id', body?.id) }}
                                 key={dish.id}
                                 className={`bg-white border-2 ${selected === dish.id ? "border-deepBlue" : ""
                                     } shadow-md rounded-md overflow-hidden hover:shadow-lg transition-transform duration-100 flex flex-col h-full justify-between`}

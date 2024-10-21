@@ -36,4 +36,5 @@ export async function createDishInMenu(daily_menu_id: number, dish_id: number) {
         console.error(error);
         return null; // Retorna null o lo que necesites en caso de error
     }
+
 }

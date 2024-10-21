@@ -3,7 +3,6 @@ import { LiaBrailleSolid } from "react-icons/lia";
 import { Calendar } from "../Home/Calendar";
 import { useEffect, useState } from "react";
 import { getTodayDateNumberDay } from "../Home/Home";
-import { set } from "react-hook-form";
 import { BaseUrl } from "../../content/Variables";
 import { getUserId } from "../../logic/user";
 import { ModalLogic } from "../logic/Modal";
@@ -174,7 +173,7 @@ export function Menu() {
                                 <h1>Menu Actual</h1>
                                 <ScrollContainer maxHeight="400px">
                                     <div className="grid grid-cols-1  gap-4 ">
-                                        {dateDishesMenu.map((dish, index) => (
+                                        {dateDishesMenu.map((dish) => (
                                             <div
                                                 key={dish.id}
                                                 className={`bg-white border-2  shadow-md rounded-md overflow-hidden hover:shadow-lg  transition-transform duration-100 flex items-center h-full justify-start`}
@@ -185,9 +184,9 @@ export function Menu() {
                                                     className="w-[4rem] h-[4rem] rounded-full object-cover "
                                                 />
                                                 <div className="p-4 text-black   text-xs mt-2">
-                                                    <h2 className="text-sm">{dish.name}</h2>
+                                                    <h2 className="text-sm uppercase">{dish.name}</h2>
                                                     <p className="text-gray-600 text-xs">{dish.description}</p>
-                                                    <span className="text-gray-400 text-xs">{dish.category}</span>
+                                                    <span className="text-gray-400 text-xs lowercase">{dish.category}</span>
                                                 </div>
                                             </div>
                                         ))}

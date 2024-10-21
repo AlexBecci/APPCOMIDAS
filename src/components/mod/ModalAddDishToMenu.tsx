@@ -7,6 +7,7 @@ import { getUserId } from "../../logic/user";
 import { BaseUrl } from "../../content/Variables";
 import { createDayMenu } from "../../logic/dailyMenu";
 import { createDishInMenu } from "../../logic/dailyMenuDishes";
+import { toast, ToastContainer } from "react-toastify";
 
 interface dto_modal {
     onClose: () => void
@@ -14,15 +15,13 @@ interface dto_modal {
     date: string // almacena la fecha del menu
 }
 
-export function ModalAddDishe({ onClose, onCloseOk, date }: dto_modal) {
+export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
     const [dishes, setDishes] = useState<Dish[]>([]); // Cambia a un array de Dish
     //constante q almacena el id del menu
     const [menuId, setMenuId] = useState<number | null>(null)
     //constante que almacena el plato seleccionado
     const [selectedId, setSelectedId] = useState<number | null>(null)
-    //booleano que maneja la validacion de si ya existe el id menu o hay que crearlo
-    const [booleanValid, setBooleanValid] = useState<boolean>(false)
-    const { register, handleSubmit } = useForm()
+    const { handleSubmit } = useForm()
 
     async function getData() {
         try {
@@ -54,9 +53,18 @@ export function ModalAddDishe({ onClose, onCloseOk, date }: dto_modal) {
     async function sendData(daily_menu_id: number, dish_id: number) {
         try {
             const data = await createDishInMenu(daily_menu_id, dish_id)
+            toast.success(`${data.message} !`, {
+                position: "top-left",
+                onClose: () => {
+                    window.location.reload()
+                }
+            });
             console.log(data)
-        } catch (error) {
+        } catch (error: any) {
             console.log(error)
+            toast.error(`${error.message} !`, {
+                position: "top-left"
+            });
         }
     }
     async function createDay() {
@@ -110,6 +118,7 @@ export function ModalAddDishe({ onClose, onCloseOk, date }: dto_modal) {
             {/*  {loading && (
                     <LoadingAllScreen />
                 )} */}
+            <ToastContainer />
             <div>
                 <div className="fixed inset-0 flex items-center justify-center  z-50">
                     <form onSubmit={handleSubmit(checkValues)} className="bg-zinc-100 text-black rounded-md p-4 w-[40vh]  shadow-xl transform transition-all duration-300">
@@ -120,12 +129,12 @@ export function ModalAddDishe({ onClose, onCloseOk, date }: dto_modal) {
                             <h1 className="text-bage text-base mr-auto mb-[1rem] ">Platos Disponibles</h1>
                         </div>
                         <ScrollContainer maxHeight="300px">
-                            <div className="grid grid-cols-2 text-white gap-4 ">
-                                {dishes.map((dish, index) => (
+                            <div className="grid grid-cols-2 text-white gap-2 ">
+                                {dishes.map((dish) => (
                                     <div
                                         onClick={() => { setSelectedId(dish.id) /* setValue('dish_id', dish.id) */ }}
                                         key={dish.id}
-                                        className={`bg-white border-2  shadow-md rounded-md overflow-hidden hover:shadow-lg ${selectedId === dish.id ? "border-deepBlue" : ""} transition-transform duration-100 flex items-center h-full justify-between`}
+                                        className={`bg-white border-2  shadow-md rounded-md overflow-hidden hover:shadow-lg ${selectedId === dish.id ? "border-deepBlue" : ""} transition-transform duration-100 flex items-center h-full justify-start`}
                                     >
                                         <img
                                             src={dish.image_url}
@@ -133,9 +142,9 @@ export function ModalAddDishe({ onClose, onCloseOk, date }: dto_modal) {
                                             className="w-[3rem] h-[3rem] rounded-full object-cover "
                                         />
                                         <div className="p-4 text-black   text-xs mt-2">
-                                            <h2 className="text-xs">{dish.name}</h2>
-                                            {/*  <p className="text-gray-600 text-xs">{dish.description}</p>
-                                            <span className="text-gray-400 text-xs">{dish.category}</span> */}
+                                            <h2 className=" uppercase">{dish.name}</h2>
+                                            {/*  <p className="text-gray-600 ">{dish.description}</p>
+                                            <span className="text-gray-400 ">{dish.category}</span> */}
                                         </div>
                                     </div>
                                 ))}

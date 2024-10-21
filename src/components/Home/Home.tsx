@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Calendar } from "./Calendar";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { DishesByMenu } from "../test/DishesByMenu";
 import { LiaBrailleSolid } from "react-icons/lia";
 import { Orders } from "./Orders";

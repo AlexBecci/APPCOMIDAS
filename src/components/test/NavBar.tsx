@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowDown, IoIosArrowUp, IoMdArrowBack, IoMdArrowUp } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 export function NavBar() {
     const [tab, setTab] = useState<boolean>(false);
     const [maxHeight, setMaxHeight] = useState<string>('400px'); // Ajusta el valor predeterminado según lo que necesites
@@ -15,8 +15,8 @@ export function NavBar() {
             route: '/menus'
         },
         {
-            name: 'Conductores',
-            route: '/drivers'
+            name: 'Comidas',
+            route: '/dishes'
         },
         {
             name: 'Vehiculos',
