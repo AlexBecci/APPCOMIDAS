@@ -25,6 +25,8 @@ export async function createDishInMenu(daily_menu_id: number, dish_id: number) {
 
         if (!res.ok) {
             // Manejar errores HTTP
+            const data = await res.json()
+            return { message: data.message, boolean: false }
             throw new Error(`Error: ${res.status} - ${res.statusText}`);
         }
 

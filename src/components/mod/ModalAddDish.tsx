@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { createDish, Dish, getDishes } from "../../logic/dish";
+import { createDish } from "../../logic/dish";
 import { ScrollContainer } from "../logic/ScrollContainer";
 import { useForm } from "react-hook-form";
 //imagenes a elegir
 import { imageUrl } from '../../content/Variables'
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { toast, ToastContainer } from "react-toastify";
 interface dto_modal {
     onClose: () => void
     onCloseOk: () => void
@@ -23,7 +24,6 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
 
     //images load
     const [images, setImages] = useState(imageUrl)
-    const [dishes, setDishes] = useState<Dish[]>([]); // Cambia a un array de Dish
     //url de la imagen
     const [url, setUrl] = useState<string>('')
     //booleano q muestra las imagenes
@@ -31,29 +31,39 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
 
     const { register, handleSubmit, setValue, getValues } = useForm<createDishDTO>()
 
-    async function getData() {
-        try {
-            const data = await getDishes();
-            console.log(data)
-            setDishes(data)
-            console.log(dishes)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-
     async function sendData() {
         const data = await getValues()
         if (data.image_url === undefined || data.image_url === null) {
-            console.log('imagen no seleccionada')
+            console.log('')
+            toast.error(`imagen no seleccionada !`, {
+                position: "top-left",
+                /*   onClose: () => {
+                      window.location.reload()
+                  } */
+            });
             return
         }
         console.log(data)
 
         try {
             const result = await createDish(data.name, data.description, data.category, data.image_url)
+            if (result.boolean === false) {
+                toast.error(`${result.message} !`, {
+                    position: "top-left",
+                    /*   onClose: () => {
+                          window.location.reload()
+                      } */
+                });
+                return
+            }
             console.log(result.message)
+            toast.success(`${result.message} !`, {
+                position: "top-left",
+                onClose: () => {
+                    /* window.location.reload() */
+                    onClose()
+                }
+            });
         } catch (error) {
             console.error(error)
         }
@@ -64,11 +74,10 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
 
     useEffect(() => {
         setImages(imageUrl)
-        getData()
     }, [])
     return (
         <div className={`fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black text-bage bg-opacity-50 transition-opacity duration-300`}>{/*  ${showModal ? 'opacity-100' : 'opacity-0'} */}
-            {/*  <ToastContainer autoClose={2000} /> */}
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/>
             {/*  {loading && (
                     <LoadingAllScreen />
                 )} */}

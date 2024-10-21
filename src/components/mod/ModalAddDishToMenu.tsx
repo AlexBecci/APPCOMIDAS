@@ -53,6 +53,15 @@ export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
     async function sendData(daily_menu_id: number, dish_id: number) {
         try {
             const data = await createDishInMenu(daily_menu_id, dish_id)
+            if (data.boolean === false) {
+                toast.error(`${data.message} !`, {
+                    position: "top-left",
+                    /*   onClose: () => {
+                          window.location.reload()
+                      } */
+                });
+                return
+            }
             toast.success(`${data.message} !`, {
                 position: "top-left",
                 onClose: () => {
@@ -60,9 +69,9 @@ export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
                 }
             });
             console.log(data)
-        } catch (error: any) {
+        } catch (error) {
             console.log(error)
-            toast.error(`${error.message} !`, {
+            toast.error(`${error} !`, {
                 position: "top-left"
             });
         }
@@ -118,7 +127,7 @@ export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
             {/*  {loading && (
                     <LoadingAllScreen />
                 )} */}
-            <ToastContainer />
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/>
             <div>
                 <div className="fixed inset-0 flex items-center justify-center  z-50">
                     <form onSubmit={handleSubmit(checkValues)} className="bg-zinc-100 text-black rounded-md p-4 w-[40vh]  shadow-xl transform transition-all duration-300">

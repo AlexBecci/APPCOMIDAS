@@ -60,6 +60,8 @@ export async function createDish(name: string, description: string, category: st
 
         if (!res.ok) {
             // Manejar errores HTTP
+            const data = await res.json()
+            return { message: data.message, boolean: false }
             throw new Error(`Error: ${res.status} - ${res.statusText}`);
         }
 

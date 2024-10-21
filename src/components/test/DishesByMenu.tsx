@@ -95,7 +95,9 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
 
             const data = await res.json();
             console.log('Order created successfully:', data);
-
+            toast.success(`${data.message} !`, {
+                position: "top-left"
+            });
         } catch (error: any) {
             console.error('Error creating order:', error);
            /*  toast.error(`${error.message} !`, {
@@ -121,7 +123,7 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
     // Renderización condicional
     return (
         <div className="p-4 text-black w-full">
-            <ToastContainer />
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/>
             {loading && <div className="flex justify-center items-center">
                 <FaSpinner className="animate-spin text-slate-700 text-4xl" />
             </div>}

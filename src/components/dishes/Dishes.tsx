@@ -16,7 +16,7 @@ export function Dishes() {
 
 
     //funcion que no permitiria que pueda pedir 
-    async function getDateAuth() {
+    async function getData() {
         try {
             const result = await fetch(`${BaseUrl}/dishes`, { credentials: 'include' as RequestCredentials })
             if (!result.ok) {
@@ -44,7 +44,7 @@ export function Dishes() {
     }
 
     useEffect(() => {
-        getDateAuth()
+        getData()
     }, [])
 
     return (
@@ -110,7 +110,7 @@ export function Dishes() {
             )} */}
             {modal && (
                 <ModalLogic isOpen={true} onClose={() => (setModal(false))}>
-                    <ModalDish onClose={() => (setModal(false))} onCloseOk={() => (setModal(false))} />
+                    <ModalDish onClose={() => (setModal(false))} onCloseOk={() => { setModal(false), getData}} />
                 </ModalLogic>
             )}
         </div>

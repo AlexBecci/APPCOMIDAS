@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 /* import { LoginDto } from "../../api/dto/user/user.dto"; */
 import { BaseUrl } from "../../content/Variables";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export interface LoginDto {
     email: string
@@ -34,6 +34,12 @@ export function Login() {
             if (!result.ok) {
                 const data = await result.json();
                 console.error('Login failed:', data.message);
+                toast.error(`${data.message} !`, {
+                    position: "top-left",
+                    /*   onClose: () => {
+                          window.location.reload()
+                      } */
+                });
                 return null; // Manejar error
             }
             const data = await result.json();
@@ -105,34 +111,34 @@ export function Login() {
     }
 
     return (
-        <div className="min-h-screen  flex items-center justify-center bg-textBlue">
+        <div className="min-h-screen  flex items-center justify-center bg-deepBlue">
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"
             />
-            <div className="bg-white max-w-sm  p-8 rounded-lg shadow-md w-96">
-                <h2 className="text-3xl font-bold mb-6 text-center text-textBlue">Iniciar Sesión</h2>
+            <div className="bg-white max-w-sm  p-8 rounded-sm shadow-md w-96">
+                <h2 className="text-3xl font-semibold mb-6 text-center text-black">Iniciar Sesión</h2>
                 <form onSubmit={handleSubmit(LoginAuth)}>
                     <div className="my-2">
-                        <label htmlFor="user" className="block text-sm font-medium text-subText mb-2">
+                        <label htmlFor="user" className="block text-sm font-medium text-coral mb-2">
                             Usuario
                         </label>
                         <input
 
                             type="user"
                             id="user"
-                            className="w-full px-3 py-2 border border-subText rounded-md focus:outline-none focus:ring-2 focus:ring-buttonBlue"
+                            className="w-full px-3 py-2 border border-subText rounded-sm focus:outline-none focus:ring-2 focus:ring-buttonBlue"
                             required
                             autoComplete="off"
                             {...register('email')}
                         />
                     </div>
                     <div className="my-2">
-                        <label htmlFor="password" className="block text-sm font-medium text-subText mb-2">
+                        <label htmlFor="password" className="block text-sm font-medium text-coral mb-2">
                             Contraseña
                         </label>
                         <input
                             type="password"
                             id="password"
-                            className="w-full px-3 py-2 border border-subText rounded-md focus:outline-none focus:ring-2 focus:ring-buttonBlue"
+                            className="w-full px-3 py-2 border border-subText rounded-sm focus:outline-none focus:ring-2 focus:ring-buttonBlue"
                             required
                             autoComplete="off"
                             {...register('password')}
@@ -140,7 +146,7 @@ export function Login() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full mt-4 bg-buttonBlue text-white py-2 px-4 rounded-md hover:bg-[#3A7BC8] transition duration-300"
+                        className="w-full mt-4 bg-buttonBlue hover:bg-deepBlue text-white py-2 px-4 rounded-sm hover:bg-de transition duration-300"
                     >
                         Iniciar Sesión
                     </button>
@@ -148,30 +154,30 @@ export function Login() {
                 {/*      <div className="mt-4 text-center">
                     <a href="#" className="text-buttonGreen hover:underline">¿Olvidaste tu contraseña?</a>
                 </div> */}
-                <div className="mt-4 text-center">
-                    <a  /* href="#"  */ className="text-buttonGreen hover:underline">¿No tienes cuenta?</a>
+                {/* <div className="mt-4 text-center">
+                    <a  className="text-buttonGreen hover:underline">¿No tienes cuenta?</a>
                 </div>
                 <div className="mt-4">
                     <button onClick={() => navigate('/register')}
-                        className="w-full bg-buttonGreen text-white py-2 px-4 rounded-md hover:bg-[#4D8B5E] transition duration-300"
+                        className="w-full bg-buttonGreen text-white py-2 px-4 rounded-sm hover:bg-[#4D8B5E] transition duration-300"
                     >
                         Crear Cuenta
                     </button>
-                </div>
-                <div className="mt-4">
+                </div> */}
+              {/*   <div className="mt-4">
                     <button onClick={checkSession}
-                        className="w-full bg-red-700 text-white py-2 px-4 rounded-md  transition duration-300"
+                        className="w-full bg-red-700 text-white py-2 px-4 rounded-sm  transition duration-300"
                     >
                         Check
                     </button>
-                </div>
-                <div className="mt-4">
+                </div> */}
+              {/*   <div className="mt-4">
                     <button onClick={logout}
-                        className="w-full bg-black text-white py-2 px-4 rounded-md  transition duration-300"
+                        className="w-full bg-black text-white py-2 px-4 rounded-sm  transition duration-300"
                     >
                         logout
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )
