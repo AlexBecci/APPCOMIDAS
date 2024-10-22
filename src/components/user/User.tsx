@@ -125,7 +125,7 @@ export function User() {
             {/* HOME */}
             {/* !ordersBoolean && */ (
                 <div className="flex flex-col items-center  text-white justify-start h-screen my-[1rem]">
-                    <div className="max-w-sm sm:max-w-md w-full lg:mx-md mt-[2rem]">
+                    <div className="max-w-sm sm:max-w-2xl w-full lg:mx-md mt-[2rem]">
                         <div className="grid grid-cols-1 gap-2  text-white  items-center">
                             {/*   <button className=" bg-deepBlue rounded-sm flex justify-start items-center  p-2 w-full ">
                             <LiaBrailleSolid size={24} />
@@ -144,7 +144,7 @@ export function User() {
                     <hr />
                     <p className="h-[0.2%] bg-gray-300 w-full my-[1rem]"></p>
                     {user && (
-                        <div className="max-w-sm sm:max-w-md w-full lg:mx-md mt-[2rem]">
+                        <div className="max-w-sm sm:max-w-2xl w-full lg:mx-md mt-[2rem]">
                             <div className="grid grid-cols-1 gap-2  text-black  items-center">
                                 {/*   <h1>Información</h1> */}
                                 <div className="grid grid-cols-2 text-start gap-4 ">
@@ -182,7 +182,7 @@ export function User() {
                     )}
                     {/* otro componente */}
                     <p className="h-[0.2%] bg-gray-300 w-full my-[1rem]"></p>
-                    <div className="max-w-sm sm:max-w-md w-full lg:mx-md ">
+                    <div className="max-w-sm sm:max-w-2xl w-full lg:mx-md ">
                         <h1 className="text-black text-lg pb-2 ">Estadísticas</h1>
                         <div className="grid grid-cols-3 text-start text-blue-600 text-xl gap-4 ">
                             <div className="bg-blue-300 w-full  rounde-sm p-2 text-center">
@@ -202,7 +202,7 @@ export function User() {
                     </div>
                     <p className="h-[0.2%] bg-gray-300 w-full my-[1rem]"></p>
 
-                    <div className="max-w-sm sm:max-w-md w-full lg:mx-md ">
+                    <div className="max-w-sm sm:max-w-2xl w-full lg:mx-md ">
                         <div className="grid grid-cols-1 gap-2 my-[2rem]  text-white  items-center">
                             {/*   <button className=" bg-deepBlue rounded-sm flex justify-start items-center  p-2 w-full ">
                         <LiaBrailleSolid size={24} />

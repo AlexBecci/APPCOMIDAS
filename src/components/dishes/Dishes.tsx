@@ -52,7 +52,7 @@ export function Dishes() {
             {/* HOME */}
             {/* !ordersBoolean && */ (
                 <div className="flex flex-col items-center  text-white justify-start h-screen mx-[1rem] my-[1rem]">
-                    <div className="max-w-sm sm:max-w-md w-full lg:mx-md mt-[2rem]">
+                    <div className="max-w-sm sm:max-w-2xl w-full  mt-[2rem]">
                         <div className="grid grid-cols-1 gap-2  text-white  items-center">
                             {/*   <button className=" bg-deepBlue rounded-sm flex justify-start items-center  p-2 w-full ">
                             <LiaBrailleSolid size={24} />
@@ -65,7 +65,7 @@ export function Dishes() {
                         </div>
                     </div>
                     {dishes.length > 0 ? (
-                        <div className="max-w-sm sm:max-w-md w-full lg:mx-md mt-[2rem]">
+                        <div className="max-w-sm sm:max-w-2xl w-full  mt-[2rem]">
                             <div className="grid grid-cols-1 gap-2  text-black  items-center">
                                 <h1>Platos Actuales</h1>
                                 <ScrollContainer maxHeight="600px">
@@ -96,7 +96,7 @@ export function Dishes() {
                             </div>
                         </div>
                     ) : (
-                        <div className="max-w-sm sm:max-w-md w-full lg:mx-md mt-[2rem]">
+                        <div className="max-w-sm sm:max-w-2xl w-full  mt-[2rem]">
                             <div className="grid grid-cols-1 gap-2  text-black  items-center">
                                 <h1>Por el momento no hay comidas...</h1>
                             </div>

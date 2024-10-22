@@ -81,11 +81,11 @@ export function Login() {
                     </p>
                     <div className="my-2">
                         <label htmlFor="user" className="block text-sm font-medium text-coral mb-2">
-                            Usuario
+                            Email
                         </label>
                         <input
 
-                            type="user"
+                            type="email"
                             id="user"
                             className="w-full px-3 py-2 border border-subText rounded-sm focus:outline-none focus:ring-2 focus:ring-buttonBlue"
                             required

@@ -167,24 +167,24 @@ export function Home() {
                 <>
                     {isMobile && (
                         <div className="flex flex-col items-center   text-white justify-start h-screen mx-[1rem] my-[1rem]">
-                            <div className="max-sm sm:max-w-xl flex items-center w-full justify-between gap-4">
+                            <div className="max-sm sm:max-w-2xl flex items-center w-full justify-between gap-4">
                                 {/* ACA DEBERIA CAMBIAR EL MES Y QUE SE ACTUALICE SOLO POR EJEMPLO SIEMPRE CUANDO CARGUE CARGUE EL MES ACTUAL Y Y LAS FLECHAS CAMVIEN DE MES DE OCTUBRE A SEPTIEMBRE Y ASI */}
                                 <button onClick={goToPreviousMonth} className="bg-slate-700 text-white rounded-full  p-2 mx-0"><IoMdArrowBack size={24} /></button>
                                 <h1 className="text-black text-lg">{/* ACA IRIA EL MES EN CUESTION ACTUAL */}{monthName}</h1>
                                 <button onClick={goToNextMonth} className="bg-slate-700 text-white rounded-full  p-2 mx-0"><IoMdArrowForward size={24} /></button>
                             </div>
-                            <div className="max-w-sm sm:max-w-xl  ">
+                            <div className="max-w-sm sm:max-w-2xl  ">
                                 <Calendar days={daysInMonth} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
                                 {selectedDay}
                             </div>
-                            <div className="max-w-sm sm:max-w-xl  w-full ">
+                            <div className="max-w-sm sm:max-w-2xl  w-full ">
                                 {selectedDay !== null && selectedDay !== undefined ? (
                                     <DishesByMenu body={bodyMenuDate} dataComparer={dateComparer} date={selectedDate} />
                                 ) : (
                                     <h1 className="text-sm text-black anima mt-[3rem]">Seleciona un día para elegir menu</h1>
                                 )}
                             </div>
-                            <div className="max-w-sm sm:max-w-xl  w-full  ">
+                            <div className="max-w-sm sm:max-w-2xl  w-full  ">
                                 <div className="grid grid-cols-2 gap-2 my-[2rem]  text-white  items-center">
                                     <button onClick={() => setOrdersBoolean(true)} className=" bg-deepBlue rounded-sm flex justify-start items-center p-2 w-full ">
                                         <LiaBrailleSolid size={24} />

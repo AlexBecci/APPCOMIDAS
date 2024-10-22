@@ -52,15 +52,16 @@ export function Orders({ boolean, close ,title}: Prop) {
     }, [])
     return (
         <div style={{ opacity }} // Aplica el estado de opacidad
-            className="absolute transition-opacity duration-100 inset-0 bg-white min-h-screen">
+            className="absolute  transition-opacity duration-100 inset-0 bg-white min-h-screen">
             <div
-                className="flex flex-col items-center justify-start mt-[6rem] mx-[1rem] min-h-full "
+                className="flex flex-col max items-center justify-start mt-[6rem] mx-[1rem] sm:mx-[4rem] min-h-full "
 
             >
                 <button onClick={handleClose} className=" mr-auto bg-slate-700 text-creamWhite rounded-full  p-2 mx-0">
                     <IoMdArrowBack size={24} />
                 </button>
-                <h1 className="text-black text-2xl g my-[1rem] mr-auto">{title}</h1>
+               <div className='w-full'>
+               <h1 className="text-black text-2xl  my-[1rem] mr-auto">{title}</h1>
                 <ScrollContainer maxHeight='650px'>
                     {orders.map((order) => (
                         <div key={order.order_id} className=" w-full my-[1rem] bg- shadow-lg rounded-sm">
@@ -82,7 +83,7 @@ export function Orders({ boolean, close ,title}: Prop) {
                         </div>
                     ))}
                 </ScrollContainer>
-                {/* Aquí puedes agregar más contenido */}
+               </div>
             </div>
         </div>
     );
