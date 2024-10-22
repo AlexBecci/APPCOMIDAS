@@ -5,6 +5,7 @@ import { Home } from './components/Home/Home';
 import { Menu } from './components/menu/Menu';
 import { Dishes } from './components/dishes/Dishes';
 import { User } from './components/user/User';
+import { Register } from './components/auth/Register';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route element={<View />}>
             <Route path='/home' element={<Home />} />
             <Route path='/menus' element={<Menu />} />
