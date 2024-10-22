@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-/* import { LoginDto } from "../../api/dto/user/user.dto"; */
 import { BaseUrl } from "../../content/Variables";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -11,13 +10,7 @@ export interface LoginDto {
     phone_number: string
     rol: string
 }
-/* {
-"email": "test_02", 
-    "password":"1234", 
-    "name":"test_02",
-    "phone_number":"111234532",
-    "rol":"testing"
-} */
+
 export function Register() {
     const navigate = useNavigate()
     const {
@@ -61,12 +54,6 @@ export function Register() {
                     navigate('/')
                 }
             });
-            // Guardar token
-            /*    if (data.token) {
-                   localStorage.setItem('token', data.token);
-                   localStorage.setItem('userId', data.userId);
-               } */
-            /* navigate('/home'); */
         } catch (error) {
             console.error('An error occurred during register:', error);
         }
@@ -77,7 +64,6 @@ export function Register() {
         <div className="min-h-screen  flex items-center justify-center bg-deepBlue">
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"
             />
-
             <div className="bg-white max-w-sm  p-8 rounded-sm shadow-md w-96">
                 <h2 className="text-3xl font-semibold mb-6 text-center text-black">Crear Usuario</h2>
                 <form onSubmit={handleSubmit(LoginAuth)}>

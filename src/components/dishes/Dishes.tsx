@@ -110,7 +110,7 @@ export function Dishes() {
             )} */}
             {modal && (
                 <ModalLogic isOpen={true} onClose={() => (setModal(false))}>
-                    <ModalDish onClose={() => (setModal(false))} onCloseOk={() => { setModal(false), getData}} />
+                    <ModalDish onClose={() => (setModal(false))} onCloseOk={() => { setModal(false), getData }} />
                 </ModalLogic>
             )}
         </div>

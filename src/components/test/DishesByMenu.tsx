@@ -138,7 +138,7 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
             <div className="">
 
                 <ScrollContainer maxHeight="400px">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {dishes.map((dish) => (
                             <div
                                 onClick={() => { setSelected(dish.id), setValue('dish_id', dish.id), setValue('daily_menu_id', body?.id) }}

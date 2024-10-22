@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { imageUrl } from '../../content/Variables'
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { toast, ToastContainer } from "react-toastify";
+import { Loading } from "../loading/FullScreenLoading";
 interface dto_modal {
     onClose: () => void
     onCloseOk: () => void
@@ -21,7 +22,7 @@ interface createDishDTO {
 
 }
 export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
-
+    const [loading, setLoading] = useState<boolean>(false)
     //images load
     const [images, setImages] = useState(imageUrl)
     //url de la imagen
@@ -32,9 +33,11 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
     const { register, handleSubmit, setValue, getValues } = useForm<createDishDTO>()
 
     async function sendData() {
+        setLoading(true)
         const data = await getValues()
         if (data.image_url === undefined || data.image_url === null) {
             console.log('')
+            setLoading(false)
             toast.error(`imagen no seleccionada !`, {
                 position: "top-left",
                 /*   onClose: () => {
@@ -43,11 +46,10 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
             });
             return
         }
-        console.log(data)
-
         try {
             const result = await createDish(data.name, data.description, data.category, data.image_url)
             if (result.boolean === false) {
+                setLoading(false)
                 toast.error(`${result.message} !`, {
                     position: "top-left",
                     /*   onClose: () => {
@@ -57,15 +59,18 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
                 return
             }
             console.log(result.message)
+            setLoading(false)
             toast.success(`${result.message} !`, {
                 position: "top-left",
                 onClose: () => {
-                    /* window.location.reload() */
+                    window.location.reload()
                     onClose()
                 }
             });
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -77,12 +82,12 @@ export function ModalDish({ onClose, /* onCloseOk, date */ }: dto_modal) {
     }, [])
     return (
         <div className={`fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black text-bage bg-opacity-50 transition-opacity duration-300`}>{/*  ${showModal ? 'opacity-100' : 'opacity-0'} */}
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/>
-            {/*  {loading && (
-                    <LoadingAllScreen />
-                )} */}
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
             <div>
                 <div className="fixed inset-0 flex items-center justify-center  z-50">
+                    {loading && (
+                        <Loading />
+                    )}
                     <form onSubmit={handleSubmit(sendData)} className="bg-zinc-100 text-black rounded-md p-4 w-[40vh]  shadow-xl transform transition-all duration-300">
                         <div className="flex justify-end items-center">
                             <AiOutlineCloseCircle className="text-black  rounded-full m-2" size={32} onClick={onClose} />

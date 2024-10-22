@@ -8,6 +8,7 @@ import { BaseUrl } from "../../content/Variables";
 import { createDayMenu } from "../../logic/dailyMenu";
 import { createDishInMenu } from "../../logic/dailyMenuDishes";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface dto_modal {
     onClose: () => void
@@ -16,6 +17,7 @@ interface dto_modal {
 }
 
 export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
+    const navigate = useNavigate()
     const [dishes, setDishes] = useState<Dish[]>([]); // Cambia a un array de Dish
     //constante q almacena el id del menu
     const [menuId, setMenuId] = useState<number | null>(null)
@@ -127,38 +129,48 @@ export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
             {/*  {loading && (
                     <LoadingAllScreen />
                 )} */}
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/>
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
             <div>
                 <div className="fixed inset-0 flex items-center justify-center  z-50">
                     <form onSubmit={handleSubmit(checkValues)} className="bg-zinc-100 text-black rounded-md p-4 w-[40vh]  shadow-xl transform transition-all duration-300">
                         <div className="flex justify-end items-center">
                             <AiOutlineCloseCircle className="text-bageDark  rounded-full m-2" size={32} onClick={onClose} />
                         </div>
-                        <div className="flex justify-center items-center">
-                            <h1 className="text-bage text-base mr-auto mb-[1rem] ">Platos Disponibles</h1>
-                        </div>
-                        <ScrollContainer maxHeight="300px">
-                            <div className="grid grid-cols-2 text-white gap-2 ">
-                                {dishes.map((dish) => (
-                                    <div
-                                        onClick={() => { setSelectedId(dish.id) /* setValue('dish_id', dish.id) */ }}
-                                        key={dish.id}
-                                        className={`bg-white border-2  shadow-md rounded-md overflow-hidden hover:shadow-lg ${selectedId === dish.id ? "border-deepBlue" : ""} transition-transform duration-100 flex items-center h-full justify-start`}
-                                    >
-                                        <img
-                                            src={dish.image_url}
-                                            alt={dish.name}
-                                            className="w-[3rem] h-[3rem] rounded-full object-cover "
-                                        />
-                                        <div className="p-4 text-black   text-xs mt-2">
-                                            <h2 className=" uppercase">{dish.name}</h2>
-                                            {/*  <p className="text-gray-600 ">{dish.description}</p>
+                        {dishes.length > 0 ? (
+                            <>
+                                <div className="flex justify-center items-center">
+                                    <h1 className="text-bage text-base mr-auto mb-[1rem] ">Platos Disponibles</h1>
+                                </div>
+                                <ScrollContainer maxHeight="300px">
+                                    <div className="grid grid-cols-2 text-white gap-2 ">
+                                        {dishes.map((dish) => (
+                                            <div
+                                                onClick={() => { setSelectedId(dish.id) /* setValue('dish_id', dish.id) */ }}
+                                                key={dish.id}
+                                                className={`bg-white border-2  shadow-md rounded-md overflow-hidden hover:shadow-lg ${selectedId === dish.id ? "border-deepBlue" : ""} transition-transform duration-100 flex items-center h-full justify-start`}
+                                            >
+                                                <img
+                                                    src={dish.image_url}
+                                                    alt={dish.name}
+                                                    className="w-[3rem] h-[3rem] rounded-full object-cover "
+                                                />
+                                                <div className="p-4 text-black   text-xs mt-2">
+                                                    <h2 className=" uppercase">{dish.name}</h2>
+                                                    {/*  <p className="text-gray-600 ">{dish.description}</p>
                                             <span className="text-gray-400 ">{dish.category}</span> */}
-                                        </div>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
+                                </ScrollContainer>
+                            </>
+                        ) : (
+                            <div className="flex flex-col justify-center items-center">
+                                <h1 className="text-bage text-base mx-auto mb-[1rem] animate-bounce ">Cargando platos...</h1>
+                                {/* <button onClick={() => navigate('/dishes')} className=" text-sm mx-auto mb-[1rem] bg-deepBlue text-white p-4 rounded-sm shadow-sm">Agregar Plato</button> */}
                             </div>
-                        </ScrollContainer>
+                        )}
+
                         {selectedId !== null && (
                             <div className="m-[2rem]">
                                 <button

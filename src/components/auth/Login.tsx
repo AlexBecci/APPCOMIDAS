@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 /* import { LoginDto } from "../../api/dto/user/user.dto"; */
 import { BaseUrl } from "../../content/Variables";
 import { toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
+import { Loading } from "../loading/FullScreenLoading";
+import { BouncingDots, FadingCircle, GrowingShrinkingCircle, PulsingDot, RotatingArrows, SpinningCircle, SpinningDots, SpinningIcon } from "../loading/Loadings";
 
 export interface LoginDto {
     email: string
@@ -14,10 +17,12 @@ export function Login() {
     const {
         register, handleSubmit,
     } = useForm<LoginDto>();
-
+    //loading const
+    const [loading, setLoading] = useState<boolean>(false)
     //EL QUE ESCRIBE EL CODIGO DE ESTA APP ES PUTO
 
     async function LoginAuth(body: LoginDto) {
+        setLoading(true)
         try {
             const result = await fetch(`${BaseUrl}/login`, {
                 method: 'POST',
@@ -32,6 +37,7 @@ export function Login() {
             });
             // Manejo de la respuesta
             if (!result.ok) {
+                setLoading(false)
                 const data = await result.json();
                 console.error('Login failed:', data.message);
                 toast.error(`${data.message} !`, {
@@ -40,6 +46,7 @@ export function Login() {
                           window.location.reload()
                       } */
                 });
+
                 return null; // Manejar error
             }
             const data = await result.json();
@@ -48,65 +55,12 @@ export function Login() {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.userId);
             }
+            setLoading(false)
             navigate('/home');
         } catch (error) {
             console.error('An error occurred during login:', error);
-        }
-    }
-
-
-    async function logout() {
-        try {
-            const result = await fetch(`${BaseUrl}/logout`, {
-                method: 'POST',
-                credentials: 'include', // Incluir cookies en la solicitud
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!result.ok) {
-                console.error('Login failed:', result);
-                return null
-            }
-            // Eliminar cualquier información de sesión almacenada en el frontend
-            localStorage.removeItem('token');
-            localStorage.removeItem('userId');
-
-            // Redirigir al usuario a la página de login o home
-            /*          window.location.href = '/login'; */
-        } catch (error) {
-            console.error('An error occurred during logout:', error);
-            return null
-        }
-    }
-
-    async function checkSession() {
-        try {
-            const result = await fetch(`${BaseUrl}/check_session`, {
-                method: 'GET',
-                credentials: 'include', // Incluir cookies en la solicitud
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (result.status === 401) {
-                // Token no está presente o no es válido
-                console.error('No token provided');
-                return false;
-            } else if (result.status === 403) {
-                // Token es inválido
-                console.error('Invalid token');
-                return false;
-            }
-
-            console.log('Session valid', result);
-            return true; // Sesión válida
-
-        } catch (error) {
-            console.error('Error during session check:', error);
-            return false; // O lanzar un error si prefieres
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -114,6 +68,10 @@ export function Login() {
         <div className="min-h-screen  flex items-center justify-center bg-deepBlue">
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"
             />
+            {loading && (
+                <Loading/>
+            )}
+            {/* <BouncingDots /> */}
             <div className="bg-white max-w-sm text-gray-800  p-8 rounded-sm shadow-md w-96">
                 <h2 className="text-3xl font-semibold mb-6 text-center text-black">Iniciar Sesión</h2>
                 <form onSubmit={handleSubmit(LoginAuth)}>

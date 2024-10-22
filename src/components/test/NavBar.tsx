@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BaseUrl } from "../../content/Variables";
-import { LiaUser } from "react-icons/lia";
+import { LiaAlignJustifySolid, LiaAlignRightSolid, LiaUser } from "react-icons/lia";
 export function NavBar() {
     //boolean tab
     const [booleanTab, setBooleanTab] = useState<boolean>(false);
@@ -90,10 +90,10 @@ export function NavBar() {
                             className={`bg-slate-700 ${tab ? 'text-turquoise1' : 'text-white'}  transition-all  ease-in-out rounded-sm  p-1 mx-0`}
                         >
                             {tab ? (
-                                <IoIosArrowUp size={24} />
+                                <LiaAlignRightSolid  size={24} />
                             ) : (
 
-                                <IoIosArrowDown size={24} />
+                                <LiaAlignRightSolid  size={24} />
                             )}
                         </button>
                         <button

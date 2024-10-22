@@ -2,10 +2,9 @@ import { LiaBrailleSolid, LiaCalendarAlt, LiaMailBulkSolid, LiaPhoneVolumeSolid 
 import { useEffect, useState } from "react";
 import { BaseUrl } from "../../content/Variables";
 import { ModalLogic } from "../logic/Modal";
-import { ScrollContainer } from "../logic/ScrollContainer";
-import { Dish } from "../../logic/dish";
 import { ModalDish } from "../mod/ModalAddDish";
 import { Orders } from "../Home/Orders";
+import { getUserId } from "../../logic/user";
 
 
 // User DTO (Data Transfer Object)
@@ -38,9 +37,6 @@ export function User() {
         return str.charAt(0); // Devolver el primer carácter del string
     }
 
-
-
-
     // Función para formatear las fechas
     function formatUserData(user: User): User {
         // Formatear la fecha de creación y actualización
@@ -66,8 +62,9 @@ export function User() {
 
     //funcion q me trae el total de ordenes realizadas
     async function getDataOrder() {
+        const userId = await getUserId()
         try {
-            const result = await fetch(`${BaseUrl}/orders_count?user_id=3`, { credentials: 'include' as RequestCredentials });
+            const result = await fetch(`${BaseUrl}/orders_count?user_id=${userId}`, { credentials: 'include' as RequestCredentials });
 
             if (!result.ok) {
                 throw new Error("Error al obtener los datos del usuario");
@@ -90,8 +87,9 @@ export function User() {
 
     // Función para obtener los datos del usuario
     async function getData() {
+        const userId = await getUserId()
         try {
-            const result = await fetch(`${BaseUrl}/user?user_id=3`, { credentials: 'include' as RequestCredentials });
+            const result = await fetch(`${BaseUrl}/user?user_id=${userId}`, { credentials: 'include' as RequestCredentials });
 
             if (!result.ok) {
                 throw new Error("Error al obtener los datos del usuario");
