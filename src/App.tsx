@@ -4,6 +4,7 @@ import { Login } from './components/test/Login';
 import { Home } from './components/Home/Home';
 import { Menu } from './components/menu/Menu';
 import { Dishes } from './components/dishes/Dishes';
+import { User } from './components/user/User';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <Route path='/home' element={<Home />} />
             <Route path='/menus' element={<Menu />} />
             <Route path='/dishes' element={<Dishes />} />
+            <Route path='/user' element={<User />} />
             {/*   <TestImage /> */}
           </Route>
         </Routes>

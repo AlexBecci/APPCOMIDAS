@@ -7,6 +7,7 @@ import { ScrollContainer } from '../logic/ScrollContainer';
 interface Prop {
     boolean: boolean;
     close: () => void;
+    title:string
 }
 interface OrderDTO {
     order_id: number;
@@ -20,7 +21,7 @@ interface OrderDTO {
     dish_category: string;
     dish_image_url: string;
 }
-export function Orders({ boolean, close }: Prop) {
+export function Orders({ boolean, close ,title}: Prop) {
     const [isVisible, setIsVisible] = useState(boolean);
     const [opacity, setOpacity] = useState(1);
     const [orders, setOrders] = useState<OrderDTO[]>([])
@@ -59,7 +60,7 @@ export function Orders({ boolean, close }: Prop) {
                 <button onClick={handleClose} className=" mr-auto bg-slate-700 text-creamWhite rounded-full  p-2 mx-0">
                     <IoMdArrowBack size={24} />
                 </button>
-                <h1 className="text-black text-2xl g my-[1rem] mr-auto">Órdenes</h1>
+                <h1 className="text-black text-2xl g my-[1rem] mr-auto">{title}</h1>
                 <ScrollContainer maxHeight='650px'>
                     {orders.map((order) => (
                         <div key={order.order_id} className=" w-full my-[1rem] bg- shadow-lg rounded-sm">

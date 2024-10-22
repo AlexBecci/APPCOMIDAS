@@ -175,8 +175,8 @@ export function Home() {
                     ) : (
                         <h1 className="text-sm text-black anima mt-[3rem]">Seleciona un día para elegir menu</h1>
                     )}
-                    <div className="max-w-sm sm:max-w-md w-full lg:mx-md mt-[2rem]">
-                        <div className="grid grid-cols-2 gap-2  text-white  items-center">
+                    <div className="max-w-sm sm:max-w-md w-full lg:mx-md ">
+                        <div className="grid grid-cols-2 gap-2 my-[2rem]  text-white  items-center">
                             {/*   <button className=" bg-deepBlue rounded-sm flex justify-start items-center  p-2 w-full ">
                         <LiaBrailleSolid size={24} />
                         LOREM
@@ -191,7 +191,7 @@ export function Home() {
             )}
             {/* ORDER OTRO TEMPLATE */}
             {ordersBoolean && (
-                <Orders boolean={ordersBoolean} close={() => setOrdersBoolean(false)} />
+                <Orders title="Órdenes" boolean={ordersBoolean} close={() => setOrdersBoolean(false)} />
             )}
         </div>
     );

@@ -159,7 +159,7 @@ export function DishesByMenu({ date, body, dataComparer }: prop) {
                                 {selected === dish.id && selected !== 0 && selected !== null && selected !== undefined && (
                                     <button
                                         onClick={createOrder}
-                                        className={`py-2 w-full ${isSameDay ? 'bg-red-500' : 'bg-deepBlue'} text-xs text-white`}
+                                        className={`py-2 w-full bg-deepBlue text-xs text-white`}
                                     >
                                         pedir
                                     </button>

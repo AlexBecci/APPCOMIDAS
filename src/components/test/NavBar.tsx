@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BaseUrl } from "../../content/Variables";
-import { LiaUser, LiaUserCircleSolid } from "react-icons/lia";
+import { LiaUser } from "react-icons/lia";
 export function NavBar() {
     //boolean tab
     const [booleanTab, setBooleanTab] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export function NavBar() {
     const optionsUser = [
         {
             name: 'Perfil',
-            route: '/home'
+            route: '/user'
         },
         {
             name: 'Cerrar Sesion',
@@ -83,11 +83,11 @@ export function NavBar() {
         <div className="relative bg-deepBlue  flex flex-col z-50">
             <header className=" shadow-md p-3 text-white relative z-10">
                 <div className="container mx-auto flex justify-between items-center">
-                    <h1 className="text-2xl ">FastFood</h1>
+                    <h1 className="text-2xl ">AutoFood</h1>
                     <div className="flex justify-between items-center gap-4">
                         <button
                             onClick={() => { setTab(!tab), setTabUser(false), setBooleanTab(true) }}
-                            className="bg-slate-700 text-tur transition-all  ease-in-out rounded-sm  p-1 mx-0"
+                            className={`bg-slate-700 ${tab ? 'text-turquoise1' : 'text-white'}  transition-all  ease-in-out rounded-sm  p-1 mx-0`}
                         >
                             {tab ? (
                                 <IoIosArrowUp size={24} />
@@ -97,8 +97,8 @@ export function NavBar() {
                             )}
                         </button>
                         <button
-                            onClick={() => { setTabUser(!tabUser), setTab(false),setBooleanTab(true) }}
-                            className="bg-slate-700 text-tur transition-all  ease-in-out rounded-sm  p-1 mx-0"
+                            onClick={() => { setTabUser(!tabUser), setTab(false), setBooleanTab(true) }}
+                            className={`bg-slate-700 ${tabUser ? 'text-turquoise1' : 'text-white'}  transition-all  ease-in-out rounded-sm  p-1 mx-0`}
                         >
                             <LiaUser size={24} />
                         </button>
@@ -106,7 +106,7 @@ export function NavBar() {
                 </div>
                 <div
                     style={{ maxHeight: maxHeight, overflowY: 'auto', overflowX: "auto" }}
-                    className={`absolute  left-0 top-full w-full transition-all duration-500 ease-in-out ${booleanTab ? 'opacity-100' : 'opacity-100'} ${booleanTab ? 'h-96' : 'h-0'} overflow-hidden`}
+                    className={`absolute  left-0 top-full w-full transition-all duration-500 ease-in-out ${booleanTab ? 'opacity-100' : 'opacity-100'} overflow-hidden`}
                 >{
                         tab === true && (
                             <div className="bg-gradient-to-bl from-deepBlue to-turquoise4 shadow-lg   p-4">
@@ -137,7 +137,7 @@ export function NavBar() {
                                 <div key={index} className="py-2">
                                     <h1
                                         onClick={() => {
-                                            setTab(false);
+                                            setTabUser(false);
                                             if (option.route) {
                                                 navigate(option.route);
                                             } else {
