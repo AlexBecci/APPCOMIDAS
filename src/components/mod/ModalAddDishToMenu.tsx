@@ -8,7 +8,6 @@ import { BaseUrl } from "../../content/Variables";
 import { createDayMenu } from "../../logic/dailyMenu";
 import { createDishInMenu } from "../../logic/dailyMenuDishes";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 interface dto_modal {
     onClose: () => void
@@ -17,7 +16,6 @@ interface dto_modal {
 }
 
 export function ModalAddDishe({ onClose, /* onCloseOk, */ date }: dto_modal) {
-    const navigate = useNavigate()
     const [dishes, setDishes] = useState<Dish[]>([]); // Cambia a un array de Dish
     //constante q almacena el id del menu
     const [menuId, setMenuId] = useState<number | null>(null)

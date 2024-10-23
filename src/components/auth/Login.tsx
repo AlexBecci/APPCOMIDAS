@@ -5,7 +5,6 @@ import { BaseUrl } from "../../content/Variables";
 import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { Loading } from "../loading/FullScreenLoading";
-import { BouncingDots, FadingCircle, GrowingShrinkingCircle, PulsingDot, RotatingArrows, SpinningCircle, SpinningDots, SpinningIcon } from "../loading/Loadings";
 
 export interface LoginDto {
     email: string

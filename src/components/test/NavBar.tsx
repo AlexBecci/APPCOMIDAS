@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { BaseUrl } from "../../content/Variables";
-import { LiaAlignJustifySolid, LiaAlignRightSolid, LiaUser } from "react-icons/lia";
+import {  LiaAlignRightSolid, LiaUser } from "react-icons/lia";
 export function NavBar() {
     //boolean tab
     const [booleanTab, setBooleanTab] = useState<boolean>(false);
